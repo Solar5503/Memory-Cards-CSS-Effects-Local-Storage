@@ -49,13 +49,23 @@ function createCard(data, index) {
   card.innerHTML = ` <div class="inner-card">
   <div class="inner-card-front">
     <p>${question}</p>
+    <button id="clearCard" class="clearCard btn">
+      <i class="fas fa-trash"></i> Clear
+    </button>
   </div>
   <div class="inner-card-back">
     <p>${answer}</p>
   </div>
 </div>`;
 
-  card.addEventListener('click', () => card.classList.toggle('show-answer'));
+  card.addEventListener('click', (e) => {
+    if (e.target.classList.contains('clearCard')) {
+      cardsData.splice(currentActiveCard, 1);
+      card.style.transform = 'scale(0)';
+      setCardsData(cardsData);
+    }
+    card.classList.toggle('show-answer');
+  });
 
   //Add to DOM cards
   cardsEl.push(card);
@@ -88,8 +98,7 @@ createCards();
 nextBtn.addEventListener('click', () => {
   cardsEl[currentActiveCard].className = 'card left';
   currentActiveCard = currentActiveCard + 1;
-  if (currentActiveCard > cardsEl.length - 1)
-    currentActiveCard = cardsEl.length - 1;
+  if (currentActiveCard > cardsEl.length - 1) currentActiveCard = 0;
 
   cardsEl[currentActiveCard].className = 'card active';
   updateCurrentText();
@@ -98,7 +107,7 @@ nextBtn.addEventListener('click', () => {
 prevBtn.addEventListener('click', () => {
   cardsEl[currentActiveCard].className = 'card right';
   currentActiveCard = currentActiveCard - 1;
-  if (currentActiveCard < 0) currentActiveCard = 0;
+  if (currentActiveCard < 0) currentActiveCard = cardsEl.length - 1;
 
   cardsEl[currentActiveCard].className = 'card active';
   updateCurrentText();
