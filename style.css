@@ -166,6 +166,10 @@ h1 button {
   max-width: 100%;
 }
 .btn-ghost {
-  position: absolute;
-  top: 210px;
+  margin-left: 150px;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+}
+.add-container h2 {
+  margin-left: 160px;
 }
